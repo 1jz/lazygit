@@ -22,6 +22,7 @@ type Binding struct {
 	Description string
 	Alternative string
 	Tag         string // e.g. 'navigation'. Used for grouping things in the cheatsheet
+	OpensMenu   bool
 }
 
 // GetDisplayStrings returns the display string of a file
@@ -231,6 +232,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Handler:     gui.scrollUpMain,
 			Alternative: "fn+up",
 			Description: gui.Tr.LcScrollUpMainPanel,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "",
@@ -238,6 +240,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Handler:     gui.scrollDownMain,
 			Alternative: "fn+down",
 			Description: gui.Tr.LcScrollDownMainPanel,
+			OpensMenu:   false,
 		},
 		{
 			ViewName: "",
@@ -268,36 +271,42 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.CreateRebaseOptionsMenu),
 			Handler:     gui.wrappedHandler(gui.handleCreateRebaseOptionsMenu),
 			Description: gui.Tr.ViewMergeRebaseOptions,
+			OpensMenu:   true,
 		},
 		{
 			ViewName:    "",
 			Key:         gui.getKey(config.Universal.CreatePatchOptionsMenu),
 			Handler:     gui.handleCreatePatchOptionsMenu,
 			Description: gui.Tr.ViewPatchOptions,
+			OpensMenu:   true,
 		},
 		{
 			ViewName:    "",
 			Key:         gui.getKey(config.Universal.PushFiles),
 			Handler:     gui.pushFiles,
 			Description: gui.Tr.LcPush,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "",
 			Key:         gui.getKey(config.Universal.PullFiles),
 			Handler:     gui.handlePullFiles,
 			Description: gui.Tr.LcPull,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "",
 			Key:         gui.getKey(config.Universal.Refresh),
 			Handler:     gui.handleRefresh,
 			Description: gui.Tr.LcRefresh,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "",
 			Key:         gui.getKey(config.Universal.OptionMenu),
 			Handler:     gui.handleCreateOptionsMenu,
 			Description: gui.Tr.LcOpenMenu,
+			OpensMenu:   true,
 		},
 		{
 			ViewName: "",
@@ -316,48 +325,56 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Undo),
 			Handler:     gui.reflogUndo,
 			Description: gui.Tr.LcUndoReflog,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "",
 			Key:         gui.getKey(config.Universal.Redo),
 			Handler:     gui.reflogRedo,
 			Description: gui.Tr.LcRedoReflog,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "status",
 			Key:         gui.getKey(config.Universal.Edit),
 			Handler:     gui.handleEditConfig,
 			Description: gui.Tr.EditConfig,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "",
 			Key:         gui.getKey(config.Universal.NextScreenMode),
 			Handler:     gui.nextScreenMode,
 			Description: gui.Tr.LcNextScreenMode,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "",
 			Key:         gui.getKey(config.Universal.PrevScreenMode),
 			Handler:     gui.prevScreenMode,
 			Description: gui.Tr.LcPrevScreenMode,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "status",
 			Key:         gui.getKey(config.Universal.OpenFile),
 			Handler:     gui.handleOpenConfig,
 			Description: gui.Tr.OpenConfig,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "status",
 			Key:         gui.getKey(config.Status.CheckForUpdate),
 			Handler:     gui.handleCheckForUpdate,
 			Description: gui.Tr.LcCheckForUpdate,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "status",
 			Key:         gui.getKey(config.Status.RecentRepos),
 			Handler:     gui.wrappedHandler(gui.handleCreateRecentReposMenu),
 			Description: gui.Tr.SwitchRepo,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "status",
@@ -371,6 +388,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Files.CommitChanges),
 			Handler:     gui.wrappedHandler(gui.handleCommitPress),
 			Description: gui.Tr.CommitChanges,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "files",
@@ -378,6 +396,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Files.CommitChangesWithoutHook),
 			Handler:     gui.handleWIPCommitPress,
 			Description: gui.Tr.LcCommitChangesWithoutHook,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "files",
@@ -385,6 +404,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Files.AmendLastCommit),
 			Handler:     gui.wrappedHandler(gui.handleAmendCommitPress),
 			Description: gui.Tr.AmendLastCommit,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "files",
@@ -392,6 +412,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Files.CommitChangesWithEditor),
 			Handler:     gui.wrappedHandler(gui.handleCommitEditorPress),
 			Description: gui.Tr.CommitChangesWithEditor,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "files",
@@ -399,6 +420,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Select),
 			Handler:     gui.wrappedHandler(gui.handleFilePress),
 			Description: gui.Tr.LcToggleStaged,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "files",
@@ -406,6 +428,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Remove),
 			Handler:     gui.handleCreateDiscardMenu,
 			Description: gui.Tr.LcViewDiscardOptions,
+			OpensMenu:   true,
 		},
 		{
 			ViewName:    "files",
@@ -413,6 +436,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Edit),
 			Handler:     gui.handleFileEdit,
 			Description: gui.Tr.LcEditFile,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "files",
@@ -420,6 +444,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.OpenFile),
 			Handler:     gui.handleFileOpen,
 			Description: gui.Tr.LcOpenFile,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "files",
@@ -427,6 +452,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Files.IgnoreFile),
 			Handler:     gui.handleIgnoreFile,
 			Description: gui.Tr.LcIgnoreFile,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "files",
@@ -434,6 +460,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Files.RefreshFiles),
 			Handler:     gui.handleRefreshFiles,
 			Description: gui.Tr.LcRefreshFiles,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "files",
@@ -441,6 +468,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Files.StashAllChanges),
 			Handler:     gui.handleStashChanges,
 			Description: gui.Tr.LcStashAllChanges,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "files",
@@ -448,6 +476,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Files.ViewStashOptions),
 			Handler:     gui.handleCreateStashMenu,
 			Description: gui.Tr.LcViewStashOptions,
+			OpensMenu:   true,
 		},
 		{
 			ViewName:    "files",
@@ -455,6 +484,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Files.ToggleStagedAll),
 			Handler:     gui.handleStageAll,
 			Description: gui.Tr.LcToggleStagedAll,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "files",
@@ -462,6 +492,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Files.ViewResetOptions),
 			Handler:     gui.handleCreateResetMenu,
 			Description: gui.Tr.LcViewResetOptions,
+			OpensMenu:   true,
 		},
 		{
 			ViewName:    "files",
@@ -469,6 +500,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.GoInto),
 			Handler:     gui.handleEnterFile,
 			Description: gui.Tr.StageLines,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "files",
@@ -476,6 +508,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Files.Fetch),
 			Handler:     gui.handleGitFetch,
 			Description: gui.Tr.LcFetch,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "files",
@@ -483,12 +516,14 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.CopyToClipboard),
 			Handler:     gui.wrappedHandler(gui.handleCopySelectedSideContextItemToClipboard),
 			Description: gui.Tr.LcCopyFileNameToClipboard,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "",
 			Key:         gui.getKey(config.Universal.ExecuteCustomCommand),
 			Handler:     gui.handleCustomCommand,
 			Description: gui.Tr.LcExecuteCustomCommand,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "files",
@@ -496,6 +531,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.ViewResetOptions),
 			Handler:     gui.handleCreateResetToUpstreamMenu,
 			Description: gui.Tr.LcViewResetToUpstreamOptions,
+			OpensMenu:   true,
 		},
 		{
 			ViewName:    "branches",
@@ -503,6 +539,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Select),
 			Handler:     gui.handleBranchPress,
 			Description: gui.Tr.LcCheckout,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -510,6 +547,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Branches.CreatePullRequest),
 			Handler:     gui.handleCreatePullRequestPress,
 			Description: gui.Tr.LcCreatePullRequest,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -524,6 +562,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Branches.CheckoutBranchByName),
 			Handler:     gui.handleCheckoutByName,
 			Description: gui.Tr.LcCheckoutByName,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -531,6 +570,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Branches.ForceCheckoutBranch),
 			Handler:     gui.handleForceCheckout,
 			Description: gui.Tr.LcForceCheckout,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -538,6 +578,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.New),
 			Handler:     gui.wrappedHandler(gui.handleNewBranchOffCurrentItem),
 			Description: gui.Tr.LcNewBranch,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -545,6 +586,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Remove),
 			Handler:     gui.handleDeleteBranch,
 			Description: gui.Tr.LcDeleteBranch,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -552,6 +594,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Branches.RebaseBranch),
 			Handler:     gui.handleRebaseOntoLocalBranch,
 			Description: gui.Tr.LcRebaseBranch,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -559,6 +602,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Branches.MergeIntoCurrentBranch),
 			Handler:     gui.handleMerge,
 			Description: gui.Tr.LcMergeIntoCurrentBranch,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -566,6 +610,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Branches.ViewGitFlowOptions),
 			Handler:     gui.handleCreateGitFlowMenu,
 			Description: gui.Tr.LcGitFlowOptions,
+			OpensMenu:   true,
 		},
 		{
 			ViewName:    "branches",
@@ -573,6 +618,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Branches.FastForward),
 			Handler:     gui.handleFastForward,
 			Description: gui.Tr.FastForward,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -580,6 +626,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.ViewResetOptions),
 			Handler:     gui.handleCreateResetToBranchMenu,
 			Description: gui.Tr.LcViewResetOptions,
+			OpensMenu:   true,
 		},
 		{
 			ViewName:    "branches",
@@ -587,6 +634,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Branches.RenameBranch),
 			Handler:     gui.handleRenameBranch,
 			Description: gui.Tr.LcRenameBranch,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -594,6 +642,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.CopyToClipboard),
 			Handler:     gui.wrappedHandler(gui.handleCopySelectedSideContextItemToClipboard),
 			Description: gui.Tr.LcCopyBranchNameToClipboard,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -601,6 +650,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.GoInto),
 			Handler:     gui.wrappedHandler(gui.handleSwitchToSubCommits),
 			Description: gui.Tr.LcViewCommits,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -608,6 +658,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Select),
 			Handler:     gui.handleCheckoutTag,
 			Description: gui.Tr.LcCheckout,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -615,6 +666,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Remove),
 			Handler:     gui.handleDeleteTag,
 			Description: gui.Tr.LcDeleteTag,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -622,6 +674,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Branches.PushTag),
 			Handler:     gui.handlePushTag,
 			Description: gui.Tr.LcPushTag,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -629,6 +682,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.New),
 			Handler:     gui.handleCreateTag,
 			Description: gui.Tr.LcCreateTag,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -636,6 +690,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.ViewResetOptions),
 			Handler:     gui.handleCreateResetToTagMenu,
 			Description: gui.Tr.LcViewResetOptions,
+			OpensMenu:   true,
 		},
 		{
 			ViewName:    "branches",
@@ -643,6 +698,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.GoInto),
 			Handler:     gui.wrappedHandler(gui.handleSwitchToSubCommits),
 			Description: gui.Tr.LcViewCommits,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -650,6 +706,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Return),
 			Handler:     gui.handleRemoteBranchesEscape,
 			Description: gui.Tr.ReturnToRemotesList,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -657,6 +714,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.ViewResetOptions),
 			Handler:     gui.handleCreateResetToRemoteBranchMenu,
 			Description: gui.Tr.LcViewResetOptions,
+			OpensMenu:   true,
 		},
 		{
 			ViewName:    "branches",
@@ -664,6 +722,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.GoInto),
 			Handler:     gui.wrappedHandler(gui.handleSwitchToSubCommits),
 			Description: gui.Tr.LcViewCommits,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -671,6 +730,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Branches.FetchRemote),
 			Handler:     gui.handleFetchRemote,
 			Description: gui.Tr.LcFetchRemote,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -678,6 +738,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.SquashDown),
 			Handler:     gui.handleCommitSquashDown,
 			Description: gui.Tr.LcSquashDown,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -685,6 +746,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.RenameCommit),
 			Handler:     gui.handleRenameCommit,
 			Description: gui.Tr.LcRenameCommit,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -692,6 +754,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.RenameCommitWithEditor),
 			Handler:     gui.handleRenameCommitEditor,
 			Description: gui.Tr.LcRenameCommitEditor,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -699,6 +762,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.ViewResetOptions),
 			Handler:     gui.handleCreateCommitResetMenu,
 			Description: gui.Tr.LcResetToThisCommit,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -706,6 +770,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.MarkCommitAsFixup),
 			Handler:     gui.handleCommitFixup,
 			Description: gui.Tr.LcFixupCommit,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -713,6 +778,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.CreateFixupCommit),
 			Handler:     gui.handleCreateFixupCommit,
 			Description: gui.Tr.LcCreateFixupCommit,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -720,6 +786,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.SquashAboveCommits),
 			Handler:     gui.handleSquashAllAboveFixupCommits,
 			Description: gui.Tr.LcSquashAboveCommits,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -727,6 +794,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Remove),
 			Handler:     gui.handleCommitDelete,
 			Description: gui.Tr.LcDeleteCommit,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -734,6 +802,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.MoveDownCommit),
 			Handler:     gui.handleCommitMoveDown,
 			Description: gui.Tr.LcMoveDownCommit,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -741,6 +810,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.MoveUpCommit),
 			Handler:     gui.handleCommitMoveUp,
 			Description: gui.Tr.LcMoveUpCommit,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -748,6 +818,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Edit),
 			Handler:     gui.handleCommitEdit,
 			Description: gui.Tr.LcEditCommit,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -755,6 +826,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.AmendToCommit),
 			Handler:     gui.handleCommitAmendTo,
 			Description: gui.Tr.LcAmendToCommit,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -762,6 +834,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.PickCommit),
 			Handler:     gui.handleCommitPick,
 			Description: gui.Tr.LcPickCommit,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -769,6 +842,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.RevertCommit),
 			Handler:     gui.handleCommitRevert,
 			Description: gui.Tr.LcRevertCommit,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -776,6 +850,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.CherryPickCopy),
 			Handler:     gui.wrappedHandler(gui.handleCopyCommit),
 			Description: gui.Tr.LcCherryPickCopy,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -783,6 +858,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.CopyToClipboard),
 			Handler:     gui.wrappedHandler(gui.handleCopySelectedSideContextItemToClipboard),
 			Description: gui.Tr.LcCopyCommitShaToClipboard,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -790,6 +866,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.CherryPickCopyRange),
 			Handler:     gui.wrappedHandler(gui.handleCopyCommitRange),
 			Description: gui.Tr.LcCherryPickCopyRange,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -797,6 +874,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.PasteCommits),
 			Handler:     gui.wrappedHandler(gui.HandlePasteCommits),
 			Description: gui.Tr.LcPasteCommits,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -804,6 +882,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.GoInto),
 			Handler:     gui.wrappedHandler(gui.handleViewCommitFiles),
 			Description: gui.Tr.LcViewCommitFiles,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -811,6 +890,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.CheckoutCommit),
 			Handler:     gui.handleCheckoutCommit,
 			Description: gui.Tr.LcCheckoutCommit,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -819,6 +899,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Modifier:    gocui.ModNone,
 			Handler:     gui.wrappedHandler(gui.handleNewBranchOffCurrentItem),
 			Description: gui.Tr.LcCreateNewBranchFromCommit,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -826,6 +907,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.TagCommit),
 			Handler:     gui.handleTagCommit,
 			Description: gui.Tr.LcTagCommit,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -833,6 +915,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.ResetCherryPick),
 			Handler:     gui.wrappedHandler(gui.exitCherryPickingMode),
 			Description: gui.Tr.LcResetCherryPick,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -840,6 +923,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.CopyCommitMessageToClipboard),
 			Handler:     gui.wrappedHandler(gui.handleCopySelectedCommitMessageToClipboard),
 			Description: gui.Tr.LcCopyCommitMessageToClipboard,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -847,6 +931,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.GoInto),
 			Handler:     gui.wrappedHandler(gui.handleViewReflogCommitFiles),
 			Description: gui.Tr.LcViewCommitFiles,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -854,6 +939,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Select),
 			Handler:     gui.handleCheckoutReflogCommit,
 			Description: gui.Tr.LcCheckoutCommit,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -861,6 +947,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.ViewResetOptions),
 			Handler:     gui.handleCreateReflogResetMenu,
 			Description: gui.Tr.LcViewResetOptions,
+			OpensMenu:   true,
 		},
 		{
 			ViewName:    "commits",
@@ -868,6 +955,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.CherryPickCopy),
 			Handler:     gui.wrappedHandler(gui.handleCopyCommit),
 			Description: gui.Tr.LcCherryPickCopy,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -875,6 +963,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.CherryPickCopyRange),
 			Handler:     gui.wrappedHandler(gui.handleCopyCommitRange),
 			Description: gui.Tr.LcCherryPickCopyRange,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -882,6 +971,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.ResetCherryPick),
 			Handler:     gui.wrappedHandler(gui.exitCherryPickingMode),
 			Description: gui.Tr.LcResetCherryPick,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commits",
@@ -889,12 +979,14 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.CopyToClipboard),
 			Handler:     gui.wrappedHandler(gui.handleCopySelectedSideContextItemToClipboard),
 			Description: gui.Tr.LcCopyCommitShaToClipboard,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commitFiles",
 			Key:         gui.getKey(config.Universal.CopyToClipboard),
 			Handler:     gui.wrappedHandler(gui.handleCopySelectedSideContextItemToClipboard),
 			Description: gui.Tr.LcCopyCommitFileNameToClipboard,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -902,6 +994,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.GoInto),
 			Handler:     gui.wrappedHandler(gui.handleViewSubCommitFiles),
 			Description: gui.Tr.LcViewCommitFiles,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -909,6 +1002,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Select),
 			Handler:     gui.handleCheckoutSubCommit,
 			Description: gui.Tr.LcCheckoutCommit,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -916,6 +1010,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.ViewResetOptions),
 			Handler:     gui.wrappedHandler(gui.handleCreateSubCommitResetMenu),
 			Description: gui.Tr.LcViewResetOptions,
+			OpensMenu:   true,
 		},
 		{
 			ViewName:    "branches",
@@ -923,6 +1018,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.New),
 			Handler:     gui.wrappedHandler(gui.handleNewBranchOffCurrentItem),
 			Description: gui.Tr.LcNewBranch,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -930,6 +1026,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.CherryPickCopy),
 			Handler:     gui.wrappedHandler(gui.handleCopyCommit),
 			Description: gui.Tr.LcCherryPickCopy,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -937,6 +1034,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.CherryPickCopyRange),
 			Handler:     gui.wrappedHandler(gui.handleCopyCommitRange),
 			Description: gui.Tr.LcCherryPickCopyRange,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -944,6 +1042,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Commits.ResetCherryPick),
 			Handler:     gui.wrappedHandler(gui.exitCherryPickingMode),
 			Description: gui.Tr.LcResetCherryPick,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -951,36 +1050,42 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.CopyToClipboard),
 			Handler:     gui.wrappedHandler(gui.handleCopySelectedSideContextItemToClipboard),
 			Description: gui.Tr.LcCopyCommitShaToClipboard,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "stash",
 			Key:         gui.getKey(config.Universal.GoInto),
 			Handler:     gui.wrappedHandler(gui.handleViewStashFiles),
 			Description: gui.Tr.LcViewStashFiles,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "stash",
 			Key:         gui.getKey(config.Universal.Select),
 			Handler:     gui.handleStashApply,
 			Description: gui.Tr.LcApply,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "stash",
 			Key:         gui.getKey(config.Stash.PopStash),
 			Handler:     gui.handleStashPop,
 			Description: gui.Tr.LcPop,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "stash",
 			Key:         gui.getKey(config.Universal.Remove),
 			Handler:     gui.handleStashDrop,
 			Description: gui.Tr.LcDrop,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "stash",
 			Key:         gui.getKey(config.Universal.New),
 			Handler:     gui.wrappedHandler(gui.handleNewBranchOffCurrentItem),
 			Description: gui.Tr.LcNewBranch,
+			OpensMenu:   false,
 		},
 		{
 			ViewName: "commitMessage",
@@ -1011,6 +1116,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Return),
 			Handler:     gui.handleMenuClose,
 			Description: gui.Tr.LcCloseMenu,
+			OpensMenu:   false,
 		},
 		{
 			ViewName: "information",
@@ -1023,54 +1129,63 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.CommitFiles.CheckoutCommitFile),
 			Handler:     gui.handleCheckoutCommitFile,
 			Description: gui.Tr.LcCheckoutCommitFile,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commitFiles",
 			Key:         gui.getKey(config.Universal.Remove),
 			Handler:     gui.handleDiscardOldFileChange,
 			Description: gui.Tr.LcDiscardOldFileChange,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commitFiles",
 			Key:         gui.getKey(config.Universal.OpenFile),
 			Handler:     gui.handleOpenOldCommitFile,
 			Description: gui.Tr.LcOpenFile,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commitFiles",
 			Key:         gui.getKey(config.Universal.Edit),
 			Handler:     gui.handleEditCommitFile,
 			Description: gui.Tr.LcEditFile,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commitFiles",
 			Key:         gui.getKey(config.Universal.Select),
 			Handler:     gui.handleToggleFileForPatch,
 			Description: gui.Tr.LcToggleAddToPatch,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "commitFiles",
 			Key:         gui.getKey(config.Universal.GoInto),
 			Handler:     gui.handleEnterCommitFile,
 			Description: gui.Tr.LcEnterFile,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "",
 			Key:         gui.getKey(config.Universal.FilteringMenu),
 			Handler:     gui.handleCreateFilteringMenuPanel,
 			Description: gui.Tr.LcOpenScopingMenu,
+			OpensMenu:   true,
 		},
 		{
 			ViewName:    "",
 			Key:         gui.getKey(config.Universal.DiffingMenu),
 			Handler:     gui.handleCreateDiffingMenuPanel,
 			Description: gui.Tr.LcOpenDiffingMenu,
+			OpensMenu:   true,
 		},
 		{
 			ViewName:    "",
 			Key:         gui.getKey(config.Universal.DiffingMenuAlt),
 			Handler:     gui.handleCreateDiffingMenuPanel,
 			Description: gui.Tr.LcOpenDiffingMenu,
+			OpensMenu:   true,
 		},
 		{
 			ViewName: "secondary",
@@ -1097,6 +1212,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gocui.MouseWheelDown,
 			Handler:     gui.scrollDownMain,
 			Description: gui.Tr.ScrollDown,
+			OpensMenu:   false,
 			Alternative: "fn+up",
 		},
 		{
@@ -1105,6 +1221,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gocui.MouseWheelUp,
 			Handler:     gui.scrollUpMain,
 			Description: gui.Tr.ScrollUp,
+			OpensMenu:   false,
 			Alternative: "fn+down",
 		},
 		{
@@ -1127,6 +1244,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Return),
 			Handler:     gui.wrappedHandler(gui.handleStagingEscape),
 			Description: gui.Tr.ReturnToFilesPanel,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "main",
@@ -1134,6 +1252,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Select),
 			Handler:     gui.wrappedHandler(gui.handleToggleStagedSelection),
 			Description: gui.Tr.StageSelection,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "main",
@@ -1141,6 +1260,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Remove),
 			Handler:     gui.wrappedHandler(gui.handleResetSelection),
 			Description: gui.Tr.ResetSelection,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "main",
@@ -1148,6 +1268,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.TogglePanel),
 			Handler:     gui.wrappedHandler(gui.handleTogglePanel),
 			Description: gui.Tr.TogglePanel,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "main",
@@ -1155,6 +1276,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Return),
 			Handler:     gui.wrappedHandler(gui.handleEscapePatchBuildingPanel),
 			Description: gui.Tr.ExitLineByLineMode,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "main",
@@ -1162,6 +1284,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.OpenFile),
 			Handler:     gui.wrappedHandler(gui.handleOpenFileAtLine),
 			Description: gui.Tr.LcOpenFile,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "main",
@@ -1169,6 +1292,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.PrevItem),
 			Handler:     gui.wrappedHandler(gui.handleSelectPrevLine),
 			Description: gui.Tr.PrevLine,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "main",
@@ -1176,6 +1300,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.NextItem),
 			Handler:     gui.wrappedHandler(gui.handleSelectNextLine),
 			Description: gui.Tr.NextLine,
+			OpensMenu:   false,
 		},
 		{
 			ViewName: "main",
@@ -1211,6 +1336,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.PrevBlock),
 			Handler:     gui.wrappedHandler(gui.handleSelectPrevHunk),
 			Description: gui.Tr.PrevHunk,
+			OpensMenu:   false,
 		},
 		{
 			ViewName: "main",
@@ -1225,6 +1351,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.NextBlock),
 			Handler:     gui.wrappedHandler(gui.handleSelectNextHunk),
 			Description: gui.Tr.NextHunk,
+			OpensMenu:   false,
 		},
 		{
 			ViewName: "main",
@@ -1239,6 +1366,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Edit),
 			Handler:     gui.handleFileEdit,
 			Description: gui.Tr.LcEditFile,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "main",
@@ -1246,6 +1374,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.OpenFile),
 			Handler:     gui.handleFileOpen,
 			Description: gui.Tr.LcOpenFile,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "main",
@@ -1254,6 +1383,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Modifier:    gocui.ModNone,
 			Handler:     gui.wrappedHandler(gui.handleLineByLineNextPage),
 			Description: gui.Tr.LcNextPage,
+			OpensMenu:   false,
 			Tag:         "navigation",
 		},
 		{
@@ -1263,6 +1393,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Modifier:    gocui.ModNone,
 			Handler:     gui.wrappedHandler(gui.handleLineByLinePrevPage),
 			Description: gui.Tr.LcPrevPage,
+			OpensMenu:   false,
 			Tag:         "navigation",
 		},
 		{
@@ -1272,6 +1403,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Modifier:    gocui.ModNone,
 			Handler:     gui.wrappedHandler(gui.handleLineByLineGotoTop),
 			Description: gui.Tr.LcGotoTop,
+			OpensMenu:   false,
 			Tag:         "navigation",
 		},
 		{
@@ -1281,6 +1413,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Modifier:    gocui.ModNone,
 			Handler:     gui.wrappedHandler(gui.handleLineByLineGotoBottom),
 			Description: gui.Tr.LcGotoBottom,
+			OpensMenu:   false,
 			Tag:         "navigation",
 		},
 		{
@@ -1289,6 +1422,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.StartSearch),
 			Handler:     gui.handleOpenSearch,
 			Description: gui.Tr.LcStartSearch,
+			OpensMenu:   false,
 			Tag:         "navigation",
 		},
 		{
@@ -1297,6 +1431,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Select),
 			Handler:     gui.wrappedHandler(gui.handleToggleSelectionForPatch),
 			Description: gui.Tr.ToggleSelectionForPatch,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "main",
@@ -1304,6 +1439,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Main.ToggleDragSelect),
 			Handler:     gui.wrappedHandler(gui.handleToggleSelectRange),
 			Description: gui.Tr.ToggleDragSelect,
+			OpensMenu:   false,
 		},
 		// Alias 'V' -> 'v'
 		{
@@ -1312,6 +1448,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Main.ToggleDragSelectAlt),
 			Handler:     gui.wrappedHandler(gui.handleToggleSelectRange),
 			Description: gui.Tr.ToggleDragSelect,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "main",
@@ -1319,6 +1456,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Main.ToggleSelectHunk),
 			Handler:     gui.wrappedHandler(gui.handleToggleSelectHunk),
 			Description: gui.Tr.ToggleSelectHunk,
+			OpensMenu:   false,
 		},
 		{
 			ViewName: "main",
@@ -1354,6 +1492,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Files.CommitChanges),
 			Handler:     gui.wrappedHandler(gui.handleCommitPress),
 			Description: gui.Tr.CommitChanges,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "main",
@@ -1361,6 +1500,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Files.CommitChangesWithoutHook),
 			Handler:     gui.handleWIPCommitPress,
 			Description: gui.Tr.LcCommitChangesWithoutHook,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "main",
@@ -1368,6 +1508,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Files.CommitChangesWithEditor),
 			Handler:     gui.wrappedHandler(gui.handleCommitEditorPress),
 			Description: gui.Tr.CommitChangesWithEditor,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "main",
@@ -1375,6 +1516,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Return),
 			Handler:     gui.wrappedHandler(gui.handleEscapeMerge),
 			Description: gui.Tr.ReturnToFilesPanel,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "main",
@@ -1382,6 +1524,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Select),
 			Handler:     gui.handlePickHunk,
 			Description: gui.Tr.PickHunk,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "main",
@@ -1389,6 +1532,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Main.PickBothHunks),
 			Handler:     gui.handlePickBothHunks,
 			Description: gui.Tr.PickBothHunks,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "main",
@@ -1396,6 +1540,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.PrevBlock),
 			Handler:     gui.handleSelectPrevConflict,
 			Description: gui.Tr.PrevConflict,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "main",
@@ -1403,6 +1548,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.NextBlock),
 			Handler:     gui.handleSelectNextConflict,
 			Description: gui.Tr.NextConflict,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "main",
@@ -1410,6 +1556,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.PrevItem),
 			Handler:     gui.handleSelectTop,
 			Description: gui.Tr.SelectTop,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "main",
@@ -1417,6 +1564,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.NextItem),
 			Handler:     gui.handleSelectBottom,
 			Description: gui.Tr.SelectBottom,
+			OpensMenu:   false,
 		},
 		{
 			ViewName: "main",
@@ -1466,6 +1614,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Undo),
 			Handler:     gui.handlePopFileSnapshot,
 			Description: gui.Tr.LcUndo,
+			OpensMenu:   false,
 		},
 		{
 			ViewName: "branches",
@@ -1480,6 +1629,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.New),
 			Handler:     gui.handleAddRemote,
 			Description: gui.Tr.LcAddNewRemote,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -1487,6 +1637,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Remove),
 			Handler:     gui.handleRemoveRemote,
 			Description: gui.Tr.LcRemoveRemote,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -1494,6 +1645,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Edit),
 			Handler:     gui.handleEditRemote,
 			Description: gui.Tr.LcEditRemote,
+			OpensMenu:   false,
 		},
 		{
 			ViewName: "branches",
@@ -1502,6 +1654,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			// gonna use the exact same handler as the 'n' keybinding because everybody wants this to happen when they checkout a remote branch
 			Handler:     gui.wrappedHandler(gui.handleNewBranchOffCurrentItem),
 			Description: gui.Tr.LcCheckout,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -1509,6 +1662,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.New),
 			Handler:     gui.wrappedHandler(gui.handleNewBranchOffCurrentItem),
 			Description: gui.Tr.LcNewBranch,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -1516,6 +1670,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Branches.MergeIntoCurrentBranch),
 			Handler:     gui.handleMergeRemoteBranch,
 			Description: gui.Tr.LcMergeIntoCurrentBranch,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -1523,6 +1678,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Remove),
 			Handler:     gui.handleDeleteRemoteBranch,
 			Description: gui.Tr.LcDeleteBranch,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -1530,6 +1686,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Branches.RebaseBranch),
 			Handler:     gui.handleRebaseOntoRemoteBranch,
 			Description: gui.Tr.LcRebaseBranch,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "branches",
@@ -1537,6 +1694,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Branches.SetUpstream),
 			Handler:     gui.handleSetBranchUpstream,
 			Description: gui.Tr.LcSetUpstream,
+			OpensMenu:   false,
 		},
 		{
 			ViewName: "status",
@@ -1604,6 +1762,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.CopyToClipboard),
 			Handler:     gui.wrappedHandler(gui.handleCopySelectedSideContextItemToClipboard),
 			Description: gui.Tr.LcCopySubmoduleNameToClipboard,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "files",
@@ -1611,6 +1770,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.GoInto),
 			Handler:     gui.forSubmodule(gui.handleSubmoduleEnter),
 			Description: gui.Tr.LcEnterSubmodule,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "files",
@@ -1618,6 +1778,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Remove),
 			Handler:     gui.forSubmodule(gui.handleResetRemoveSubmodule),
 			Description: gui.Tr.LcViewResetAndRemoveOptions,
+			OpensMenu:   true,
 		},
 		{
 			ViewName:    "files",
@@ -1625,6 +1786,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Submodules.Update),
 			Handler:     gui.forSubmodule(gui.handleUpdateSubmodule),
 			Description: gui.Tr.LcSubmoduleUpdate,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "files",
@@ -1632,6 +1794,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.New),
 			Handler:     gui.wrappedHandler(gui.handleAddSubmodule),
 			Description: gui.Tr.LcAddSubmodule,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "files",
@@ -1639,6 +1802,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Universal.Edit),
 			Handler:     gui.forSubmodule(gui.handleEditSubmoduleUrl),
 			Description: gui.Tr.LcEditSubmoduleUrl,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "files",
@@ -1646,6 +1810,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Submodules.Init),
 			Handler:     gui.forSubmodule(gui.handleSubmoduleInit),
 			Description: gui.Tr.LcInitSubmodule,
+			OpensMenu:   false,
 		},
 		{
 			ViewName:    "files",
@@ -1653,6 +1818,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 			Key:         gui.getKey(config.Submodules.BulkMenu),
 			Handler:     gui.wrappedHandler(gui.handleBulkSubmoduleActionsMenu),
 			Description: gui.Tr.LcViewBulkSubmoduleOptions,
+			OpensMenu:   true,
 		},
 	}
 
@@ -1677,6 +1843,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 				Key:         gui.getKey(config.Universal.NextTab),
 				Handler:     gui.handleNextTab,
 				Description: gui.Tr.LcNextTab,
+				OpensMenu:   false,
 				Tag:         "navigation",
 			},
 			{
@@ -1684,6 +1851,7 @@ func (gui *Gui) GetInitialKeybindings() []*Binding {
 				Key:         gui.getKey(config.Universal.PrevTab),
 				Handler:     gui.handlePrevTab,
 				Description: gui.Tr.LcPrevTab,
+				OpensMenu:   false,
 				Tag:         "navigation",
 			},
 		}...)
